@@ -50,7 +50,7 @@ function inverte(texto) {
 console.log(inverte("teste"));  // Saída: etset
 console.log(inverte("abcde"));  // Saída: edcba
 console.log(inverte("12345"));  // Saída: 54321
-// O teste efeuado gerou um problema de recursão, eu faria usando as ferramentas já disponíveis no JS
+// Alternativa
 return texto.split("").reverse().join(""); 
 ```
 08. Crie uma função que receba uma string e retorne um Hash com a quantidade de ocorrências de cada palavra. 
@@ -88,6 +88,32 @@ function  contaOcorrencias(texto)
     
 }
 
+
 console.log( contaOcorrencias('asa bola casa asa bola asa'))
+
+```
+09. Implemente um método ou função que receba dois intervalos de datas e retorne um booleano informando 
+se existe intersecção entre os dois intervalos:
+Exemplos:
+1. verificaInterseccao('01/12/2013', '20/12/2013', '15/12/2013', '31/12/2013')  => Verdadeiro
+2. verificaInterseccao('01/12/2013', '15/12/2013', '20/12/2013', '31/12/2013')  => Falso
+
+A forma mais simples, foi tratar a data e comparar com a data final do primeiro intervalo com a data inicial do segundo intervalo, 
+se a data final do segundo intervalo for meno que a data final do primeiro intervalo há uma intercessão de datas.
+
+```
+function verificaInterseccao(inicioData, finalData , inicioData1, finalData2) {
+    const convertData =(data) => data.split('/').reverse().join('-');
+    let data1 = new Date(convertData(inicioData));
+    let data2 = new Date(convertData(finalData));
+    let data3 = new Date(convertData(inicioData1));
+    let data4 = new Date(convertData(finalData2));
+
+    return data2.getTime() > data3.getTime()  ? 'True' : 'False';
+
+}
+
+console.log(verificaInterseccao('01/12/2013', '20/12/2013', '15/12/2013', '31/12/2013'));
+console.log(verificaInterseccao('01/12/2013', '15/12/2013', '20/12/2013', '31/12/2013'));
 
 ```
