@@ -1,0 +1,63 @@
+{
+    "usuario": {
+      "id": 1,
+      "nome": "João da Silva",
+      "email": "joao.silva@email.com"
+    },
+    "tarefas": [
+      {
+        "id": 1,
+        "tarefa": "Finalizar a documentação do projeto",
+        "prioridade": "alta",
+        "dataDeVencimento": "2024-09-20",
+        "status": "em andamento",
+        "categoria": "trabalho",
+        "usuarioId": 1
+      },
+      {
+        "id": 2,
+        "tarefa": "Comprar mantimentos",
+        "prioridade": "média",
+        "dataDeVencimento": "2024-09-15",
+        "status": "pendente",
+        "categoria": "pessoal",
+        "usuarioId": 1
+      },
+      {
+        "id": 3,
+        "tarefa": "Ler o livro 'Código Limpo'",
+        "prioridade": "baixa",
+        "dataDeVencimento": "2024-09-25",
+        "status": "pendente",
+        "categoria": "estudo",
+        "usuarioId": 1
+      },
+      {
+        "id": 4,
+        "tarefa": "Enviar relatórios trimestrais",
+        "prioridade": "alta",
+        "dataDeVencimento": "2024-09-10",
+        "status": "concluída",
+        "categoria": "trabalho",
+        "usuarioId": 1
+      },
+      {
+        "id": 5,
+        "tarefa": "Marcar consulta médica",
+        "prioridade": "média",
+        "dataDeVencimento": "2024-09-12",
+        "status": "concluída",
+        "categoria": "pessoal",
+        "usuarioId": 1
+      },
+      {
+        "id": 6,
+        "tarefa": "Organizar o home office",
+        "prioridade": "baixa",
+        "dataDeVencimento": "2024-09-30",
+        "status": "pendente",
+        "categoria": "pessoal",
+        "usuarioId": 1
+      }
+    ]
+  }
