@@ -94,9 +94,10 @@ console.log( contaOcorrencias('asa bola casa asa bola asa'))
 ```
 09. Implemente um método ou função que receba dois intervalos de datas e retorne um booleano informando 
 se existe intersecção entre os dois intervalos:
+
 Exemplos:
-1. verificaInterseccao('01/12/2013', '20/12/2013', '15/12/2013', '31/12/2013')  => Verdadeiro
-2. verificaInterseccao('01/12/2013', '15/12/2013', '20/12/2013', '31/12/2013')  => Falso
+  1. verificaInterseccao('01/12/2013', '20/12/2013', '15/12/2013', '31/12/2013')  => Verdadeiro
+  2. verificaInterseccao('01/12/2013', '15/12/2013', '20/12/2013', '31/12/2013')  => Falso
 
 A forma mais simples, foi tratar a data e comparar com a data final do primeiro intervalo com a data inicial do segundo intervalo, 
 se a data final do segundo intervalo for meno que a data final do primeiro intervalo há uma intercessão de datas.
