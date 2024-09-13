@@ -49,8 +49,7 @@ const Todo = () => {
 
   const handleStatus = (index) => {
           let novasTodos = [...todos];
-          debugger
-          novasTodos[index].status = novasTodos[index].status == Status.pendente ? Status.concluido : Status.pendente;
+          novasTodos[index].status = novasTodos[index].status === Status.pendente ? Status.concluido : Status.pendente;
           setTodos(novasTodos);
   }
 

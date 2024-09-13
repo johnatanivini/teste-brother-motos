@@ -1,12 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 const Modal = (...props) => {
-    const {titleModal, textModal, openDialog, handleCloseDialog, handleConfirm} = props;
-    console.log(props);
+   let prop = props.shift()
+    const {titleModal, textModal, openDialog, handleCloseDialog, handleConfirm} = prop;
     return (
+      <>
         <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
+        
       >
         <DialogTitle>{titleModal}</DialogTitle>
         <DialogContent>
@@ -21,6 +23,7 @@ const Modal = (...props) => {
           </Button>
         </DialogActions>
       </Dialog>
+      </>
     )
 }
 export default Modal;
