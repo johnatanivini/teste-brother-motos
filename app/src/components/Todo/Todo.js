@@ -1,9 +1,10 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, Box, Typography, List, ListItem, ListItemText, IconButton, Container, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { TextField, Button, Box, Typography, List, Container } from '@mui/material';
+import Status from '../../enum/status';
+import ListaDeItens from './ListaDeItens';
+import Modal from '../Modal/Modal';
 
 
 const validationSchema = Yup.object({
@@ -26,27 +27,41 @@ const Todo = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
+  
       if (editIndex !== null) {
-        const updatedTodos = todos.map((todo, index) =>
-          index === editIndex ? values.todo : todo
-        );
+        const updatedTodos = todos.map((todo, index) =>  {
+          debugger
+          if (index === editIndex) {
+              todos[editIndex].titulo = values.todo;
+              return todos[editIndex];
+             }
+          return todo
+        });
         setTodos(updatedTodos);
         setEditIndex(null);
       } else {
-        setTodos([...todos, values.todo]);
+        todos.push({ titulo: values.todo, status: Status.pendente , data: new Date(), data_concluida: ''});
+        setTodos(todos);
       }
       resetForm();
     }
   });
 
+  const handleStatus = (index) => {
+          let novasTodos = [...todos];
+          debugger
+          novasTodos[index].status = novasTodos[index].status == Status.pendente ? Status.concluido : Status.pendente;
+          setTodos(novasTodos);
+  }
+
   const handleEdit = (index) => {
-    formik.setFieldValue('todo', todos[index]);
     setEditIndex(index);
+    formik.setFieldValue('todo', todos[index].titulo);
   };
 
   const handleDelete = (index) => {
-    setOpenDialog(true);
     setEditIndex(index);
+    setOpenDialog(true);
   };
 
   const handleConfirmDialogDelete = () => {
@@ -55,7 +70,7 @@ const Todo = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="false">
       <Box sx={{ width: '100%', maxWidth: '100%', margin: 'auto', padding: 2 }}>
         <Typography component="h1" variant="h5">
           Tarefas
@@ -91,42 +106,11 @@ const Todo = () => {
         </Box>
         <List sx={{ marginTop: 2, bgcolor: 'background.paper'}}>
           {todos.map((todo, index) => (
-            <ListItem
-              key={index}
-              sx={{borderColor:'#000'}}
-              secondaryAction={
-                <>
-                  <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(index)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(index)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </>
-              }
-            >
-              <ListItemText primary={todo} />
-            </ListItem>
+              <ListaDeItens todo={todo} index={index} handleStatus={handleStatus} handleEdit={handleEdit} handleDelete={handleDelete}/>
           ))}
         </List>
       </Box>
-      <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-      >
-        <DialogTitle>Atenção</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Deseja remover este item da lista?</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={handleConfirmDialogDelete} color="primary">
-            Confirmar
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Modal titleModal = "Atenção" textModal = "Deseja remover este item da lista" openDialog={openDialog} handleCloseDialog= {handleCloseDialog} handleConfirm={handleConfirmDialogDelete} />
     </Container>
   );
 };
