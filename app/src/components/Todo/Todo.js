@@ -5,7 +5,9 @@ import { TextField, Button, Box, Typography, List, Container } from '@mui/materi
 import Status from '../../enum/status';
 import ListaDeItens from './ListaDeItens';
 import Modal from '../Modal/Modal';
+import Tasks from '../../Persistencia/Tasks';
 
+const taskModel = new Tasks();
 
 const validationSchema = Yup.object({
   todo: Yup.string()
@@ -17,6 +19,11 @@ const Todo = () => {
   const [todos, setTodos] = React.useState([]);
   const [editIndex, setEditIndex] = React.useState(null);
 
+
+   React.useEffect(() => {
+       setTodos(taskModel.list());
+   }, [todos])
+
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
@@ -27,21 +34,20 @@ const Todo = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-  
       if (editIndex !== null) {
         const updatedTodos = todos.map((todo, index) =>  {
-          debugger
           if (index === editIndex) {
-              todos[editIndex].titulo = values.todo;
+            todos[editIndex].titulo = values.todo;
               return todos[editIndex];
              }
           return todo
         });
-        setTodos(updatedTodos);
+        taskModel.setItem(updatedTodos);
         setEditIndex(null);
       } else {
+        debugger
         todos.push({ titulo: values.todo, status: Status.pendente , data: new Date(), data_concluida: ''});
-        setTodos(todos);
+        taskModel.setItem(todos);
       }
       resetForm();
     }
@@ -50,21 +56,21 @@ const Todo = () => {
   const handleStatus = (index) => {
           let novasTodos = [...todos];
           novasTodos[index].status = novasTodos[index].status === Status.pendente ? Status.concluido : Status.pendente;
-          setTodos(novasTodos);
+          taskModel.setItem(novasTodos);
   }
 
   const handleEdit = (index) => {
-    setEditIndex(index);
     formik.setFieldValue('todo', todos[index].titulo);
+    setEditIndex(index);
   };
 
   const handleDelete = (index) => {
-    setEditIndex(index);
     setOpenDialog(true);
+    setEditIndex(index);
   };
 
   const handleConfirmDialogDelete = () => {
-      setTodos(todos.filter((_, i) => i !== editIndex));
+     taskModel.removeItem(editIndex)
       setOpenDialog(false);
   }
 
