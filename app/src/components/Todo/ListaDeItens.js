@@ -33,7 +33,7 @@ const ListaDeItens  = (props) => {
           justifyItems: 'stretch'
         }}>
              <ListItemText>
-              <Checkbox  onChange={() => handleStatus(index)}>
+              <Checkbox checked = { todo.status === Status.concluido ? 'checked' : '' }  onChange={() => handleStatus(index)}>
                   {todo.status === Status.concluido  ? <PendingIcon /> : <CheckIcon />}
                 </Checkbox>
              </ListItemText>
